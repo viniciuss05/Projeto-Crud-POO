@@ -7,21 +7,20 @@ package univs.edu.usuario;
 
 /**
  *
- * @author Vinicius
+ * @author vinicius
  */
-public class main {
-    
+public class Main {
+
     public static void main(String[] args) {
+
         Usuario usuario = new Usuario();
-        
+
         UsuarioDAO dao = new UsuarioDAO();
-        
-        usuario = dao.pesquisarPorId(1);
-        usuario.setLogin("admin2");
-        usuario.setSenha("TripaChico");
-        
-        dao.editar(usuario);
-        
-        
+
+        usuario = dao.pesquisar(1);
+        System.out.println(usuario.getIdUsuario());
+        System.out.println(usuario.getLogin());
+        System.out.println(usuario.getSenha());
     }
+
 }

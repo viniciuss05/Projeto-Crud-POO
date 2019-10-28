@@ -1,23 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package univs.edu.usuario;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import static org.omg.CORBA.AnySeqHelper.id;
+import org.hibernate.criterion.Restrictions;
 import univs.edu.util.HibernateUtil;
-/**
- *
- * @author Vinicius
- */
+
 public class UsuarioDAO {
+
     private Session sessao;
     private Transaction transacao;
-    
-    public void salvar(Usuario usuario){
+
+    public void salvar(Usuario usuario) {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
         sessao.save(usuario);
@@ -25,7 +18,7 @@ public class UsuarioDAO {
         sessao.close();
     }
     
-    public void excluir(Usuario usuario){
+    public void excluir(Usuario usuario) {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
         sessao.delete(usuario);
@@ -33,7 +26,7 @@ public class UsuarioDAO {
         sessao.close();
     }
     
-    public void editar(Usuario usuario){
+    public void editar(Usuario usuario) {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
         sessao.update(usuario);
@@ -41,14 +34,12 @@ public class UsuarioDAO {
         sessao.close();
     }
     
-    public Usuario pesquisarPorId(Usuario usuario){
+    public Usuario pesquisar(int id) {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
-        Usuario usuario = (Usuario) sessao.createCriteria(Usuario.class)
-                .add(Restrictions.eq("id", id)).uniqueResult();
+        Usuario usuario = (Usuario) sessao.createCriteria(Usuario.class).add(Restrictions.eq("idUsuario", id)).uniqueResult();
         sessao.close();
         return usuario;
-        
     }
-    
+
 }
