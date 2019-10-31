@@ -7,7 +7,7 @@ package univs.edu.usuario;
 
 /**
  *
- * @author vinicius
+ * @author victo
  */
 public class Main {
 
@@ -16,11 +16,20 @@ public class Main {
         Usuario usuario = new Usuario();
 
         UsuarioDAO dao = new UsuarioDAO();
-
-        usuario = dao.pesquisar(1);
-        System.out.println(usuario.getIdUsuario());
-        System.out.println(usuario.getLogin());
-        System.out.println(usuario.getSenha());
+        
+        usuario.setLogin("ui");
+        usuario.setSenha("ui");
+        
+        dao.salvar(usuario);
+        
+//        usuario.setLogin("admin");
+//        usuario.setSenha("admin");
+//        dao.editar(usuario);
+        
+//        usuario = dao.pesquisar(1);
+//        System.out.println(usuario.getIdUsuario());
+//        System.out.println(usuario.getLogin());
+//        System.out.println(usuario.getSenha());
     }
 
 }
