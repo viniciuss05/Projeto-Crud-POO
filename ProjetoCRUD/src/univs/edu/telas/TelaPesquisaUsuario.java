@@ -10,23 +10,19 @@ import univs.edu.usuario.Usuario;
 import univs.edu.usuario.UsuarioDAO;
 import univs.edu.usuario.UsuarioTableModel;
 
-/**
- *
- * @author Vinicius
- */
+
 public class TelaPesquisaUsuario extends javax.swing.JFrame {
 
-    
-    Usuario usuario = new Usuario();
-    UsuarioDAO dao = new UsuarioDAO();
-    
-    
+   Usuario usuario = new Usuario(); 
+   UsuarioDAO dao = new UsuarioDAO();
+   
     public TelaPesquisaUsuario() {
         initComponents();
         atualizarTabela();
     }
+    
     public void atualizarTabela(){
-        UsuarioTableModel tm = new UsuarioTableModel(dao.listarUsuarios());
+        UsuarioTableModel tm = new UsuarioTableModel(dao.listarUsuarios()); 
         tabelaUsuario.setModel(tm);
     }
 
@@ -93,6 +89,11 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
         });
 
         jButton4.setText("Voltar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,32 +152,35 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfLoginActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int linha = tabelaUsuario.getSelectedRow();
-        if(linha == -1){
-            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
-        }else  if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário?", "Excluir Usuário", 
-                  JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-            usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
-            dao.excluir(usuario);
-            atualizarTabela();
-            JOptionPane.showMessageDialog(null, "Usuário excluido!");
+       int linha = tabelaUsuario.getSelectedRow(); //PARA CAPTURAR A LINHA SELECIONADA, FOI CRIADO UMA VARIAVEL PARA RECEBER ESSA LINHA
+       if(linha == -1){ //POR PADRAO A LINHA DA TEBELA JÁ VEM COM -1
+           JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA");
+        }else if(JOptionPane.showConfirmDialog(null, "DESEJA REALMENTE EXCLUIR ESTÉ USUARIO", "Excluir Usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+          usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
+          dao.excluir(usuario);
+          atualizarTabela();
+          JOptionPane.showMessageDialog(null, "USÁRIO EXCLUIDO!!!");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int linha = tabelaUsuario.getSelectedRow();
-        if(linha == -1){
-            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        int linha = tabelaUsuario.getSelectedRow(); //PARA CAPTURAR A LINHA SELECIONADA, FOI CRIADO UMA VARIAVEL PARA RECEBER ESSA LINHA
+       if(linha == -1){ //POR PADRAO A LINHA DA TEBELA JÁ VEM COM -1
+           JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA");
         }else{
             usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
-            TelaUsuario tela = new TelaUsuario();
+            TelaUsuario tela = new TelaUsuario(); //INSTACIANDO A TELA DE USUARIO, POREM AINDA NAO ESTÁ VISIVEL
             tela.usuario = usuario;
             tela.preencherUsuario();
-            tela.setVisible(true);
-            dispose();
-        }
-        
-        
+            tela.setVisible(true); //DEIXAR A TELA VISIVEL
+            dispose(); //FECHARA  TELA
+            
+       }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
