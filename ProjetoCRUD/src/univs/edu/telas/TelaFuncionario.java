@@ -5,6 +5,7 @@
  */
 package univs.edu.telas;
 
+import javax.swing.JOptionPane;
 import univs.edu.funcionario.Funcionario;
 import univs.edu.funcionario.FuncionarioDAO;
 import univs.edu.usuario.Usuario;
@@ -31,6 +32,14 @@ public class TelaFuncionario extends javax.swing.JFrame {
            tfCPF.setText("");
            jcCargo.setSelectedItem("Selecione");
         }
+    
+    public void preencherFuncionario(){
+        tfNome.setText(funcionario.getNomeFuncionario());
+        tfCPF.setText(funcionario.getCpf());
+        tfSalario.setText(String.valueOf(funcionario.getSalario()));
+        tfUsuario.setText(funcionario.getUsuario().getLogin());
+        jcCargo.setSelectedItem(funcionario.getCargo());
+    }
 
     public  void carregarUsuario(Usuario usuario){
            funcionario.setUsuario(usuario);
@@ -272,11 +281,15 @@ public class TelaFuncionario extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if(!tfNome.getText().isEmpty() && !tfCPF.getText().isEmpty()
                 && !tfSalario.getText().isEmpty()
+                && !tfUsuario.getText().isEmpty()
                 && !jcCargo.getSelectedItem().equals("Selecione")){
             funcionario.setCargo(String.valueOf(jcCargo.getSelectedItem()));
             funcionario.setCpf(tfCPF.getText());
             funcionario.setNomeFuncionario(tfNome.getText());
             funcionario.setSalario(Double.parseDouble(tfSalario.getText()));
+            dao.salvar(funcionario);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -308,10 +321,8 @@ public class TelaFuncionario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaFuncionario().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaFuncionario().setVisible(true);
         });
     }
 
